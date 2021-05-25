@@ -99,6 +99,41 @@ namespace EmployeePayrollService
             }
             return false;
         }
+        public void UpdateSalary(double basic_pay, string name)
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = $"update employee_payroll set basic_pay = {basic_pay} where name = '{name}';";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    var result = cmd.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result != 0)
+                    {
+
+                        Console.WriteLine("Salary Updated");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not Updated");
+
+                    }
+
+                }
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
 
     }
 
