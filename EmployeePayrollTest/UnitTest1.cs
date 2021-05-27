@@ -34,9 +34,5 @@ namespace EmployeePayrollTest
             decimal expected = 1810054;
             Assert.AreEqual(expected, result);
         }
-
-
     }
-
-
 }

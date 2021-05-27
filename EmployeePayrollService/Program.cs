@@ -29,6 +29,5 @@ namespace EmployeePayrollService
             repo.UpdateSalary(700054, "Mark");
             Console.ReadKey();
         }
-
     }
 }
