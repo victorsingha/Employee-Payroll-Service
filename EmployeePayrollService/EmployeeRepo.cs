@@ -113,17 +113,13 @@ namespace EmployeePayrollService
                     this.connection.Close();
                     if (result != 0)
                     {
-
                         Console.WriteLine("Salary Updated");
                     }
                     else
                     {
                         Console.WriteLine("Not Updated");
-
                     }
-
                 }
-
             }
             catch(Exception e)
             {
@@ -160,7 +156,6 @@ namespace EmployeePayrollService
                         return sum;
                     }  
                 }
-
             }
             catch (Exception e)
             {
@@ -171,9 +166,40 @@ namespace EmployeePayrollService
             {
                 this.connection.Close();
             }
-
         }
-
+        public void getNameOfEmployeeBetweenGivenDate(string startDate,string endDate)
+        {
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = $"select name from employee_payroll where start between cast('{startDate}' as date) and cast('{endDate}' as date);";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            string name = dr.GetString(0);
+                            Console.WriteLine(name);
+                        }                      
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No data found");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
-
 }

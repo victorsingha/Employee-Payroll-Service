@@ -34,5 +34,11 @@ namespace EmployeePayrollTest
             decimal expected = 1810054;
             Assert.AreEqual(expected, result);
         }
+        [TestMethod]
+        public void GetNameOfEmployeeBetweenGivenDateTest()
+        {
+            EmployeeRepo repo = new EmployeeRepo();
+            repo.getNameOfEmployeeBetweenGivenDate("2019-01-01","2020-01-01");
+        }
     }
 }

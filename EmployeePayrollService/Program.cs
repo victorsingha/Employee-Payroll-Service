@@ -11,6 +11,7 @@ namespace EmployeePayrollService
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Employee Payroll!");
+            Console.WriteLine("----------------------------");
             EmployeeRepo repo = new EmployeeRepo();
             //EmployeeModel employee = new EmployeeModel();
             //employee.EmployeeName = "Mohan";
@@ -26,7 +27,9 @@ namespace EmployeePayrollService
             //    Console.WriteLine("Records added successfully");
             //repo.GetAllEmployee();
 
-            repo.UpdateSalary(700054, "Mark");
+            //repo.UpdateSalary(700054, "Mark");
+            
+            repo.getNameOfEmployeeBetweenGivenDate("2019-01-01", "2021-12-01");
             Console.ReadKey();
         }
     }
