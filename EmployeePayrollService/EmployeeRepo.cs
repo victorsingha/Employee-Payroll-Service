@@ -138,8 +138,11 @@ namespace EmployeePayrollService
                 EmployeeModel employeeModel = new EmployeeModel();
                 using (this.connection)
                 {
-                    string query = $"SELECT SUM(basic_pay) FROM employee_payroll; ";
-                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    string querySUM = $"SELECT SUM(basic_pay) FROM employee_payroll;";
+                    string queryAVG = $"SELECT AVG(basic_pay) FROM employee_payroll;";
+                    string queryCOUNT = $"SELECT COUNT(basic_pay) FROM employee_payroll;";
+
+                    SqlCommand cmd = new SqlCommand(querySUM, this.connection);
                     this.connection.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.HasRows)
