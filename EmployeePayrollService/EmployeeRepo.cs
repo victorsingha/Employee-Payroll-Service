@@ -134,6 +134,45 @@ namespace EmployeePayrollService
                 this.connection.Close();
             }
         }
+        public decimal getSumOfBasicPay()
+        {
+            decimal sum = 0;
+            try
+            {
+                EmployeeModel employeeModel = new EmployeeModel();
+                using (this.connection)
+                {
+                    string query = $"SELECT SUM(basic_pay) FROM employee_payroll; ";
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            sum = dr.GetDecimal(0);
+                        }
+                        return sum;
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No data found");
+                        return sum;
+                    }  
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return sum;
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+
+        }
 
     }
 

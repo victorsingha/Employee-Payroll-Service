@@ -8,7 +8,7 @@ namespace EmployeePayrollTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void AddEmployeeTest()
         {
             EmployeeRepo repo = new EmployeeRepo();
             EmployeeModel employee = new EmployeeModel();
@@ -27,11 +27,12 @@ namespace EmployeePayrollTest
         }
 
         [TestMethod]
-        public void GetAllEmployeeShouldReturnListOfRecords()
+        public void GetSumOfAllEmployeeBasicPay()
         {
-            //EmployeeRepo repo = new EmployeeRepo();
-            //var result = repo.GetAllEmployee();
-            //Assert.IsTrue(result);
+            EmployeeRepo repo = new EmployeeRepo();
+            decimal result = repo.getSumOfBasicPay();
+            decimal expected = 1810054;
+            Assert.AreEqual(expected, result);
         }
 
 
