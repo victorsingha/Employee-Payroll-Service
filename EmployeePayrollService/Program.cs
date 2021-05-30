@@ -28,8 +28,26 @@ namespace EmployeePayrollService
             //repo.GetAllEmployee();
 
             //repo.UpdateSalary(700054, "Mark");
+
+            //repo.getNameOfEmployeeBetweenGivenDate("2019-01-01", "2021-12-01");
+
+            DateTime startDateTime = DateTime.Now;
+            repo.GetAllEmployee();
+            DateTime stopDateTime = DateTime.Now;
+            Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
+
+            DateTime startDateTimeThread = DateTime.Now;
+            DateTime stopDateTimeThread = DateTime.Now;
+            Task thread = new Task(()=>
+            {
+                startDateTimeThread = DateTime.Now;
+                repo.GetAllEmployee();
+                stopDateTimeThread = DateTime.Now;
+                Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
+            });thread.Start();
             
-            repo.getNameOfEmployeeBetweenGivenDate("2019-01-01", "2021-12-01");
+            
+
             Console.ReadKey();
         }
     }

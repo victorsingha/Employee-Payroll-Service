@@ -40,5 +40,21 @@ namespace EmployeePayrollTest
             EmployeeRepo repo = new EmployeeRepo();
             repo.getNameOfEmployeeBetweenGivenDate("2019-01-01","2020-01-01");
         }
+
+        [TestMethod]
+        public void ThreadVSNoThread()
+        {
+            EmployeeRepo repo = new EmployeeRepo();
+            DateTime startDateTime = DateTime.Now;
+            repo.GetAllEmployee();
+            DateTime stopDateTime = DateTime.Now;
+            Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
+
+            DateTime startDateTimeThread = DateTime.Now;
+            repo.GetAllEmployee_With_Thread();
+            DateTime stopDateTimeThread = DateTime.Now;
+            Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
+
+        }
     }
 }
