@@ -1,6 +1,7 @@
 ﻿using EmployeePayrollService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading.Tasks;
 
 namespace EmployeePayrollTest
 {
@@ -45,15 +46,21 @@ namespace EmployeePayrollTest
         public void ThreadVSNoThread()
         {
             EmployeeRepo repo = new EmployeeRepo();
+
             DateTime startDateTime = DateTime.Now;
             repo.GetAllEmployee();
             DateTime stopDateTime = DateTime.Now;
             Console.WriteLine("Duration without thread: " + (stopDateTime - startDateTime));
 
             DateTime startDateTimeThread = DateTime.Now;
-            repo.GetAllEmployee_With_Thread();
             DateTime stopDateTimeThread = DateTime.Now;
-            Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
+            Task thread = new Task(() =>
+            {
+                startDateTimeThread = DateTime.Now;
+                repo.GetAllEmployee();
+                stopDateTimeThread = DateTime.Now;
+                Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
+            }); thread.Start();
 
         }
     }
