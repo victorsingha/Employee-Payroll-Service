@@ -110,7 +110,6 @@ namespace EmployeePayrollService
         //        con.Close();
         //    }
         //}
-
         public bool AddEmployee(EmployeeModel model)
         {
             try
@@ -318,6 +317,52 @@ namespace EmployeePayrollService
         //    }
 
         //}
+        public void InsertData_Transaction(EmployeeModel model)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            using (connection)
+            {
+                connection.Open();
+                SqlTransaction transaction;
+                transaction = connection.BeginTransaction("Insert Employee Transaction");
+                try
+                {
+                    SqlCommand sqlCommand = new SqlCommand($"insert into employee_payroll(name,basic_pay,start,gender) values ('{model.EmployeeName}', {model.BasicPay}, '{model.StartDate}', '{model.Gender}')", connection, transaction);
+                  
+                    SqlParameter outPutVal = new SqlParameter("@scopeIdentifier", SqlDbType.Int);
+                    sqlCommand.ExecuteNonQuery();
+
+                    int id = 9;
+                    double basicPay = Convert.ToDouble(model.BasicPay);
+                    double deduction = Convert.ToInt32(0.2 * basicPay);
+                    double taxablePay = basicPay - deduction;
+                    double incomeTax = Convert.ToInt32(0.1 * taxablePay);
+                    double netPay = basicPay - incomeTax;
+                    
+                    SqlCommand sqlCommand1 = new SqlCommand($"insert into basic_pay(empID,BasicPay,Deductions,TaxablePay,Tax,NetPay) values ({id}, {basicPay}, {deduction}, {taxablePay},{incomeTax} ,{netPay})", connection, transaction);               
+                    sqlCommand1.ExecuteNonQuery();
+                    
+                    transaction.Commit();
+                    connection.Close();
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+
+        }
+
 
 
     }
