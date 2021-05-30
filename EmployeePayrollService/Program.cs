@@ -46,10 +46,10 @@ namespace EmployeePayrollService
             //    Console.WriteLine("Duration with thread: " + (stopDateTimeThread - startDateTimeThread));
             //});thread.Start();
 
-            employee.EmployeeName = "raja";
-            employee.BasicPay = 345435;
+            employee.EmployeeName = "rani";
+            employee.BasicPay = 500000;
             employee.StartDate = Convert.ToDateTime("2022-10-21");
-            employee.Gender = 'M';
+            employee.Gender = 'F';
             repo.InsertData_Transaction(employee);
 
 

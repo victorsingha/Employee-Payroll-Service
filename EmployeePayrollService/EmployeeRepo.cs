@@ -283,7 +283,7 @@ namespace EmployeePayrollService
                     SqlParameter outPutVal = new SqlParameter("@scopeIdentifier", SqlDbType.Int);
                     sqlCommand.ExecuteNonQuery();
 
-                    int id = 9;
+                    int id = 10;
                     double basicPay = Convert.ToDouble(model.BasicPay);
                     double deduction = Convert.ToInt32(0.2 * basicPay);
                     double taxablePay = basicPay - deduction;
